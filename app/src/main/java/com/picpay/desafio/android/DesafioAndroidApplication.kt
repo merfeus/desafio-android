@@ -2,6 +2,7 @@ package com.picpay.desafio.android
 
 import android.app.Application
 import com.picpay.desafio.android.di.repositoryModule
+import com.picpay.desafio.android.di.userDB
 import com.picpay.desafio.android.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -17,7 +18,8 @@ class DesafioAndroidApplication : Application() {
             modules(
                 listOf(
                     viewModelModule,
-                    repositoryModule
+                    repositoryModule,
+                    userDB
                 )
             )
         }
