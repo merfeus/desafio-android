@@ -51,7 +51,7 @@ class ListOfUsersFragment() : Fragment(R.layout.fragment_list_of_users) {
     }
 
     private fun setupViewModels() {
-        viewModel.getUsers()
+        viewModel.getUsersFromDatabase()
     }
 
     private fun setupRecyclerView() {
