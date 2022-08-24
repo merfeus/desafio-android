@@ -28,8 +28,24 @@ class ListOfUsersViewModel(val repository: Repository) : ViewModel() {
                     _error.value = Unit
                 }
                 is NetworkResponse.Success -> {
-                    _usersListing.value = response.data
+                    response.data.let {
+                        _usersListing.value = it
+                        repository.insertUsersFromDatabase(it)
+                    }
                 }
+            }
+            loadingStateLiveDate.value = State.LOADING_FINISHED
+        }
+    }
+
+    fun getUsersFromDatabase() {
+        viewModelScope.launch {
+            loadingStateLiveDate.value = State.LOADING
+            val listOfUsers = repository.getUsersFromDatabase()
+            if (!listOfUsers.isNullOrEmpty()) {
+                _usersListing.value = listOfUsers
+            } else {
+                getUsers()
             }
             loadingStateLiveDate.value = State.LOADING_FINISHED
         }
