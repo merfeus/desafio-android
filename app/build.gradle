@@ -1,17 +1,15 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.picpay.desafio.android"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -36,6 +34,10 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildFeatures{
+        viewBinding true
     }
 }
 
@@ -100,8 +102,12 @@ dependencies {
     //Mockk
     testImplementation "io.mockk:mockk:1.10.0"
 
-//    debugImplementation "androidx.fragment:fragment-testing:1.5.1"
+    //Test Rule
     androidTestImplementation "androidx.test:rules:1.3.0"
     testImplementation "androidx.test:rules:1.3.0"
 
+    // ROOM
+    implementation("androidx.room:room-runtime:2.4.3")
+    implementation("androidx.room:room-ktx:2.4.3")
+    kapt "androidx.room:room-compiler:2.4.3"
 }
