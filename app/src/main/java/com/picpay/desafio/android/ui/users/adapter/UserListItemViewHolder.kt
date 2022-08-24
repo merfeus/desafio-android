@@ -9,15 +9,17 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.picpay.desafio.android.databinding.ListItemUserBinding
 import com.picpay.desafio.android.model.User
-import kotlinx.android.synthetic.main.list_item_user.view.*
 
 class UserListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    private val binding: ListItemUserBinding = ListItemUserBinding.bind(itemView)
+
     fun bind(user: User) {
-        itemView.name.text = user.name
-        itemView.username.text = user.username
-        itemView.progressBar.visibility = View.VISIBLE
+        binding.name.text = user.name
+        binding.username.text = user.username
+        binding.progressBar.visibility = View.VISIBLE
         Glide.with(itemView.context)
             .load(user.img)
             .listener(object : RequestListener<Drawable> {
@@ -27,7 +29,7 @@ class UserListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
                     target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    itemView.progressBar.isVisible = false
+                    binding.progressBar.isVisible = false
                     return false
                 }
 
@@ -38,11 +40,11 @@ class UserListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    itemView.progressBar.isVisible = false
+                    binding.progressBar.isVisible = false
                     return false
                 }
 
             })
-            .into(itemView.picture)
+            .into(binding.picture)
     }
 }
