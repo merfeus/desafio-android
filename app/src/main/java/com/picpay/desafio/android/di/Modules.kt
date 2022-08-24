@@ -8,6 +8,7 @@ import com.picpay.desafio.android.repository.Repository
 import com.picpay.desafio.android.repository.RepositoryImpl
 import com.picpay.desafio.android.service.RetrofitBuilder
 import com.picpay.desafio.android.ui.users.ListOfUsersViewModel
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
