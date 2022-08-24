@@ -62,15 +62,15 @@ class ListOfUsersViewModelTest {
             delay(1000)
             NetworkResponse.Success(data = listOf(user))
         }
-
+        coVerify { repositoryImpl.insertUsersFromDatabase(listOf(user)) }
         instantiate().getUsers()
-
 
         testDispatcher.advanceTimeBy(1000)
 
         coVerify {
             loadingObserver.onChanged(ListOfUsersViewModel.State.LOADING)
             repositoryImpl.getUsers()
+            repositoryImpl.insertUsersFromDatabase(listOf(user))
             userObserver.onChanged(listOf(user))
             loadingObserver.onChanged(ListOfUsersViewModel.State.LOADING_FINISHED)
         }
@@ -104,6 +104,16 @@ class ListOfUsersViewModelTest {
             userObserver.onChanged(listOf(user))
             loadingObserver.onChanged(ListOfUsersViewModel.State.LOADING_FINISHED)
         }
+    }
+
+    @Test
+    fun `when getUsers is called then it should call repository to get all users from db`(){
+        val user = User(img = "aaa", name = "Jose", id = 1, username = "Jose@aa")
+
+        coEvery { repositoryImpl.getUsersFromDatabase() } returns listOf(user)
+        instantiate().getUsersFromDatabase()
+
+        coVerify { repositoryImpl.getUsers() }
     }
 
 
