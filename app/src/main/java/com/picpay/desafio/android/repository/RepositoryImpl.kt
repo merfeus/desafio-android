@@ -1,10 +1,11 @@
 package com.picpay.desafio.android.repository
 
+import com.picpay.desafio.android.database.dao.UsersDAO
 import com.picpay.desafio.android.model.User
 import com.picpay.desafio.android.service.NetworkResponse
 import com.picpay.desafio.android.service.PicPayService
 
-class RepositoryImpl(private val api: PicPayService) : Repository {
+class RepositoryImpl(private val api: PicPayService, private val usersDAO: UsersDAO) : Repository {
 
     override suspend fun getUsers(): NetworkResponse<List<User>> {
         return try {
@@ -18,4 +19,14 @@ class RepositoryImpl(private val api: PicPayService) : Repository {
             NetworkResponse.Error(e)
         }
     }
+
+    override suspend fun getUsersFromDatabase(): List<User>? {
+        return usersDAO.getAll()
+
+    }
+
+    override suspend fun insertUsersFromDatabase(list: List<User>) {
+        return usersDAO.insert(list)
+    }
+
 }
