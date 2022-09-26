@@ -9,6 +9,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.Response
 
@@ -18,7 +19,7 @@ class RepositoryImplTest {
     private val apiService: PicPayService = mockk()
 
     private val userDao: UsersDAO = mockk()
-    private val db: AppDatabase = mockk()
+    private val repositoryImpl = RepositoryImpl(apiService, userDao)
 
     @Test
     fun `when getUsers is called then it should call service getUsers`() {
@@ -26,10 +27,10 @@ class RepositoryImplTest {
         coEvery { apiService.getUsers() } returns Response.success(listOf(user))
 
         runBlockingTest {
-            RepositoryImpl(apiService, userDao).getUsers()
+            repositoryImpl.getUsers()
         }
 
-        coVerify { apiService.getUsers() }
+//        assertEquals(Response.success(listOf(user)))
 
     }
 

@@ -19,7 +19,7 @@ val viewModelModule = module {
 
 val repositoryModule = module {
 
-    single<Repository> {
+    factory <Repository> {
         RepositoryImpl(
             api = RetrofitBuilder.getAllUsers(),
             usersDAO = get()
